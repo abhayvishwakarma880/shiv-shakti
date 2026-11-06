@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/*
+  Brand palette — taken from the logo. Only these two hues (blue + red),
+  plus white / tints of the same hues, are used across the website.
+*/
+@theme {
+  --color-brand-50: #eef5fc;
+  --color-brand-100: #d9e8f7;
+  --color-brand-200: #b3d0ee;
+  --color-brand-300: #7fb0e0;
+  --color-brand-400: #3f84c6;
+  --color-brand-500: #1a64ab;
+  --color-brand-600: #0f4b84; /* logo blue */
+  --color-brand-700: #0c3d6c;
+  --color-brand-800: #092f54;
+  --color-brand-900: #062240;
+  --color-brand-950: #041729;
+
+  --color-accent-50: #fff0f0;
+  --color-accent-100: #ffdcdc;
+  --color-accent-200: #ffb8b7;
+  --color-accent-300: #ff8584;
+  --color-accent-400: #f04846;
+  --color-accent-500: #da1a19; /* logo red */
+  --color-accent-600: #b81413;
+  --color-accent-700: #961111;
+
+  --font-display: "Marcellus", "Noto Sans Devanagari", serif;
+  --font-sans: "DM Sans", "Noto Sans Devanagari", system-ui, sans-serif;
+  --font-hindi: "Noto Sans Devanagari", "DM Sans", sans-serif;
+
+  --animate-spin-slow: spin 60s linear infinite;
+  --animate-spin-reverse: spin-reverse 90s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes spin-reverse {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white font-sans text-brand-900 antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+  }
+  ::selection {
+    @apply bg-accent-500 text-white;
+  }
+}
+
+/* Reusable building blocks (Tailwind v4 custom utilities, usable with variants). */
+@utility section {
+  @apply py-16 sm:py-24;
+}
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500;
+}
+@utility btn-primary {
+  @apply btn bg-accent-500 text-white shadow-lg shadow-accent-500/30 hover:-translate-y-0.5 hover:bg-accent-600;
+}
+@utility btn-secondary {
+  @apply btn bg-brand-600 text-white shadow-lg shadow-brand-600/30 hover:-translate-y-0.5 hover:bg-brand-700;
+}
+@utility btn-outline {
+  @apply btn border-2 border-white/70 text-white hover:bg-white hover:text-brand-700;
+}
+@utility btn-outline-dark {
+  @apply btn border-2 border-brand-600 text-brand-600 hover:bg-brand-600 hover:text-white;
+}
+@utility card {
+  @apply rounded-2xl border border-brand-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-600/10;
+}
+@utility reveal {
+  @apply translate-y-6 opacity-0 transition-all duration-700 ease-out;
+  &.is-visible {
+    @apply translate-y-0 opacity-100;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+  .animate-spin-slow,
+  .animate-spin-reverse,
+  .animate-float {
+    animation: none;
+  }
+}
