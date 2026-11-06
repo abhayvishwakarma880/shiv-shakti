@@ -74,7 +74,7 @@ export default function BlogDetails() {
     <>
       <ReadingProgress />
 
-      <header className="bg-gradient-to-br from-brand-900 via-brand-700 to-brand-600 pb-32 pt-14 text-white sm:pt-20">
+      <header className="bg-gradient-to-br from-brand-900 via-brand-700 to-brand-600 pb-32 pt-32 text-white sm:pt-40">
         <div className="container-x max-w-4xl">
           <Link to="/blog" className="mb-6 inline-flex items-center gap-2 text-sm text-brand-200 hover:text-white">
             <ArrowLeft className="h-4 w-4" /> Back to Blog

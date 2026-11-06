@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Mail, Menu, Phone, X } from "lucide-react";
 import logo from "../../assets/images/logo.jpg";
 import SocialIcon from "../ui/SocialIcons";
 import { navLinks, primaryPhone, site } from "../../data/site";
 
-const linkClass = ({ isActive }) =>
+const linkClass = (scrolled) => ({ isActive }) =>
   `relative px-1 py-2 text-sm font-semibold transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-accent-500 after:transition-transform hover:text-accent-500 hover:after:scale-x-100 ${
-    isActive ? "text-accent-500 after:scale-x-100" : "text-brand-700"
+    isActive ? "text-accent-500 after:scale-x-100" : scrolled ? "text-brand-700" : "text-white"
   }`;
 
 export default function Navbar() {
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const hasHero = ["/", "/about", "/services", "/gemstones", "/blog", "/contact"].includes(pathname) || pathname.startsWith("/blog/");
+  const isSolid = scrolled || !hasHero;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -29,9 +32,9 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50">
       {/* Top contact strip */}
-      <div className="hidden bg-brand-700 text-xs text-brand-100 md:block">
+      <div className={`hidden text-xs text-brand-100 transition-colors md:block ${scrolled ? "bg-brand-700" : "bg-transparent"}`}>
         <div className="container-x flex items-center justify-between py-2">
           <div className="flex items-center gap-6">
             <a href={`tel:${primaryPhone.tel}`} className="flex items-center gap-2 hover:text-white">
@@ -52,7 +55,7 @@ export default function Navbar() {
       </div>
 
       {/* Main bar */}
-      <div className={`bg-white transition-shadow ${scrolled ? "shadow-lg shadow-brand-900/10" : "border-b border-brand-100"}`}>
+      <div className={`transition-[background-color,box-shadow] duration-300 ${isSolid ? "bg-white shadow-lg shadow-brand-900/10" : "bg-transparent"}`}>
         <div className="container-x flex items-center justify-between py-2">
           <Link to="/" aria-label={`${site.name} home`} className="shrink-0">
             <img src={logo} alt={site.name} className="h-14 w-auto sm:h-16" />
@@ -60,7 +63,7 @@ export default function Navbar() {
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
             {navLinks.map((link) => (
-              <NavLink key={link.to} to={link.to} end={link.to === "/"} className={linkClass}>
+              <NavLink key={link.to} to={link.to} end={link.to === "/"} className={linkClass(isSolid)}>
                 {link.label}
               </NavLink>
             ))}
@@ -74,7 +77,7 @@ export default function Navbar() {
               type="button"
               onClick={() => setOpen(true)}
               aria-label="Open menu"
-              className="rounded-full p-2 text-brand-700 hover:bg-brand-50 lg:hidden"
+              className={`rounded-full p-2 hover:bg-brand-50 lg:hidden ${isSolid ? "text-brand-700" : "text-white"}`}
             >
               <Menu className="h-7 w-7" />
             </button>

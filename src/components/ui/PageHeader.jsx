@@ -4,7 +4,7 @@ import ZodiacWheel from "./ZodiacWheel";
 /** Banner used at the top of inner pages. */
 export default function PageHeader({ title, subtitle, breadcrumb }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-brand-900 via-brand-700 to-brand-600 py-20 text-white sm:py-28">
+    <section className="relative overflow-hidden bg-gradient-to-br from-brand-900 via-brand-700 to-brand-600 pb-20 pt-36 text-white sm:pb-28 sm:pt-40">
       <ZodiacWheel className="pointer-events-none absolute -right-32 -top-32 h-[28rem] w-[28rem] opacity-15" />
       <div className="container-x relative">
         <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-2 text-sm text-brand-200">

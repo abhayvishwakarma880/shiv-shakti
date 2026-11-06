@@ -12,7 +12,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-accent-500/25 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-32 right-0 h-96 w-96 rounded-full bg-brand-400/30 blur-[120px]" />
 
-      <div className="container-x relative grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-2 lg:py-28">
+      <div className="container-x relative grid items-center gap-12 pb-16 pt-32 sm:pb-24 sm:pt-40 lg:grid-cols-2 lg:pb-28 lg:pt-44">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest backdrop-blur">
             <BadgeCheck className="h-4 w-4 text-accent-300" /> {site.tagline}
